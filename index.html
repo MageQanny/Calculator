@@ -17,15 +17,15 @@
         <input type="button" value='4' v-on:click="numUpdate(4)">&nbsp;
         <input type="button" value='5' v-on:click="numUpdate(5)">&nbsp;
         <input type="button" value='6' v-on:click="numUpdate(6)">&nbsp;
-        <input type="button" value='- 'v-on:click="operateUpdate('-')"><br><br>
+        <input type="button" value='−'v-on:click="operateUpdate('−')"><br><br>
         <input type="button" value='7' v-on:click="numUpdate(7)">&nbsp;
         <input type="button" value='8' v-on:click="numUpdate(8)">&nbsp;
         <input type="button" value='9' v-on:click="numUpdate(9)">&nbsp;
-        <input type="button" value='x' v-on:click="operateUpdate('x')"><br><br>
-        <input type="button" value='     =     ' v-on:click="finalize">
+        <input type="button" value='×' v-on:click="operateUpdate('×')"><br><br>
+        <input type="button" value='    =    ' v-on:click="finalize">&nbsp;
         <input type="button" value='0' v-on:click="numUpdate(0)">&nbsp;
-        <input type="button" value='/' v-on:click="operateUpdate('/')"><br><br>
-        <input type="button" value='   RESET   ' v-on:click="reset(); empty()">
+        <input type="button" value='÷' v-on:click="operateUpdate('÷')"><br><br>
+        <input type="button" value='   RESET   ' v-on:click="reset()">
     </div>
     <script>
         var calculator=new Vue({
@@ -33,60 +33,60 @@
             data: {
                 num1: 0,
                 num2: 0,
-                operand: " ",
+                operand: "",
                 operandTrue: false,
                 newCalc: true,
-                result: 0,
                 resultDisplay: ""
             },
             methods:({
                 numUpdate(num){
-                    if(this.newCalc)
+                    if(this.newCalc){
                         this.resultDisplay="";
+                        this.num1=0;
+                    }
                     if(!this.operandTrue){
                         this.num1=this.num1*10+num;
+                        this.newCalc=false;
                     }
                     else{
                         this.num2=this.num2*10+num;
                     }
-                this.resultDisplay+=num;
-                this.newCalc=false;
+                this.resultDisplay+=num.toString();
                 },
                 operateUpdate(op){
+                    if(this.resultDisplay=="")
+                        return; 
                     this.operand=op;
                     this.operandTrue=true;
                     this.resultDisplay+=op;
+                    this.newCalc=false;
                 },
                 reset(){
                     this.num1=0;
                     this.num2=0;
                     this.operandTrue=false;
                     this.newCalc=true;
+                    this.resultDisplay="";
                 },
                 finalize(){
                     switch(this.operand){
                         case "+":
-                            this.result=this.num1+this.num2;
-                            console.log(this.result);
+                            this.num1+=this.num2;
                             break;
-                        case "-":
-                            this.result=this.num1-this.num2;
-                            console.log(this.result);
+                        case "−":
+                            this.num1-=this.num2;
                             break;
-                        case "x":
-                            this.result=this.num1*this.num2;
-                            console.log(this.result);
+                        case "×":
+                            this.num1*=this.num2;
                             break;
-                        case "/":
-                            this.result=this.num1/this.num2;
-                            console.log(this.result);
+                        case "÷":
+                            this.num1/=this.num2;
                             break;
                     }
-                    this.resultDisplay=this.result;
-                    this.reset();
-                },
-                empty(){
-                    this.resultDisplay="";
+                    this.resultDisplay=this.num1;
+                    this.num2=0;
+                    this.operandTrue=false;
+                    this.newCalc=true;                  
                 }
             })
         })
