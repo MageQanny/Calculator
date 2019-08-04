@@ -33,8 +33,7 @@
             data: {
                 num1: 0,
                 num2: 0,
-                operand: "",
-                operandTrue: false,
+                operator: "",
                 newCalc: true,
                 resultDisplay: ""
             },
@@ -44,7 +43,7 @@
                         this.resultDisplay="";
                         this.num1=0;
                     }
-                    if(!this.operandTrue){
+                    if(this.operator==""){
                         this.num1=this.num1*10+num;
                         this.newCalc=false;
                     }
@@ -54,22 +53,19 @@
                 this.resultDisplay+=num.toString();
                 },
                 operateUpdate(op){
-                    if(this.resultDisplay=="")
+                    if(this.resultDisplay==""||this.operator!="")
                         return; 
-                    this.operand=op;
-                    this.operandTrue=true;
+                    this.operator=op;
                     this.resultDisplay+=op;
                     this.newCalc=false;
                 },
                 reset(){
-                    this.num1=0;
                     this.num2=0;
-                    this.operandTrue=false;
                     this.newCalc=true;
                     this.resultDisplay="";
                 },
                 finalize(){
-                    switch(this.operand){
+                    switch(this.operator){
                         case "+":
                             this.num1+=this.num2;
                             break;
@@ -84,9 +80,9 @@
                             break;
                     }
                     this.resultDisplay=this.num1;
+                    this.operator="";
                     this.num2=0;
-                    this.operandTrue=false;
-                    this.newCalc=true;                  
+                    this.newCalc=true;
                 }
             })
         })
