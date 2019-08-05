@@ -6,26 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Calculator</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="calculator.css">
 </head>
 <body>
+    <h1><center>CALCULATOR</center></h1>
     <div id="calculator">
-        <input type="text" v-bind:value="resultDisplay"><br>
-        <input type="button" value='1' v-on:click="numUpdate(1)">&nbsp;
-        <input type="button" value='2' v-on:click="numUpdate(2)">&nbsp;
-        <input type="button" value='3' v-on:click="numUpdate(3)">&nbsp;
-        <input type="button" value='+' v-on:click="operateUpdate('+')"><br><br>
-        <input type="button" value='4' v-on:click="numUpdate(4)">&nbsp;
-        <input type="button" value='5' v-on:click="numUpdate(5)">&nbsp;
-        <input type="button" value='6' v-on:click="numUpdate(6)">&nbsp;
-        <input type="button" value='−'v-on:click="operateUpdate('−')"><br><br>
-        <input type="button" value='7' v-on:click="numUpdate(7)">&nbsp;
-        <input type="button" value='8' v-on:click="numUpdate(8)">&nbsp;
-        <input type="button" value='9' v-on:click="numUpdate(9)">&nbsp;
-        <input type="button" value='×' v-on:click="operateUpdate('×')"><br><br>
-        <input type="button" value='    =    ' v-on:click="finalize">&nbsp;
-        <input type="button" value='0' v-on:click="numUpdate(0)">&nbsp;
-        <input type="button" value='÷' v-on:click="operateUpdate('÷')"><br><br>
-        <input type="button" value='   RESET   ' v-on:click="reset()">
+        <center>
+            <input class="result" type="text" v-bind:value="resultDisplay" readonly>
+            <div class="keys">
+                <input class="numbers" type="button" value='1' v-on:click="numUpdate(1)">
+                <input class="numbers" type="button" value='2' v-on:click="numUpdate(2)">
+                <input class="numbers" type="button" value='3' v-on:click="numUpdate(3)">
+                <input class="operators" type="button" value='+' v-on:click="operateUpdate('+')">
+                <input class="numbers" type="button" value='4' v-on:click="numUpdate(4)">
+                <input class="numbers" type="button" value='5' v-on:click="numUpdate(5)">
+                <input class="numbers" type="button" value='6' v-on:click="numUpdate(6)">
+                <input class="operators" type="button" value='−'v-on:click="operateUpdate('−')">
+                <input class="numbers" type="button" value='7' v-on:click="numUpdate(7)">
+                <input class="numbers" type="button" value='8' v-on:click="numUpdate(8)">
+                <input class="numbers" type="button" value='9' v-on:click="numUpdate(9)">
+                <input class="operators" type="button" value='×' v-on:click="operateUpdate('×')">
+                <input class="operators" type="button" value='=' v-on:click="finalize" style="background: rgb(243, 124, 12);">
+                <input class="numbers" type="button" value='0' v-on:click="numUpdate(0)">
+                <input class="operators" type="button" value='C' v-on:click="reset()" style="background: rgb(243, 124, 12);">
+                <input class="operators" type="button" value='÷' v-on:click="operateUpdate('÷')">
+            </div>
+        </center>
     </div>
     <script>
         var calculator=new Vue({
@@ -35,7 +41,7 @@
                 num2: 0,
                 operator: "",
                 newCalc: true,
-                resultDisplay: ""
+                resultDisplay: "0"
             },
             methods:({
                 numUpdate(num){
@@ -53,7 +59,7 @@
                 this.resultDisplay+=num.toString();
                 },
                 operateUpdate(op){
-                    if(this.resultDisplay==""||this.operator!="")
+                    if(this.resultDisplay=="0"||this.operator!="")
                         return; 
                     this.operator=op;
                     this.resultDisplay+=op;
@@ -62,7 +68,7 @@
                 reset(){
                     this.num2=0;
                     this.newCalc=true;
-                    this.resultDisplay="";
+                    this.resultDisplay="0";
                 },
                 finalize(){
                     switch(this.operator){
