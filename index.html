@@ -14,22 +14,25 @@
         <center>
             <input class="result" type="text" v-bind:value="resultDisplay" readonly>
             <div class="keys">
-                <input class="numbers" type="button" value='1' v-on:click="numUpdate(1)">
-                <input class="numbers" type="button" value='2' v-on:click="numUpdate(2)">
-                <input class="numbers" type="button" value='3' v-on:click="numUpdate(3)">
-                <input class="operators" type="button" value='+' v-on:click="operateUpdate('+')">
-                <input class="numbers" type="button" value='4' v-on:click="numUpdate(4)">
-                <input class="numbers" type="button" value='5' v-on:click="numUpdate(5)">
-                <input class="numbers" type="button" value='6' v-on:click="numUpdate(6)">
-                <input class="operators" type="button" value='−'v-on:click="operateUpdate('−')">
-                <input class="numbers" type="button" value='7' v-on:click="numUpdate(7)">
-                <input class="numbers" type="button" value='8' v-on:click="numUpdate(8)">
-                <input class="numbers" type="button" value='9' v-on:click="numUpdate(9)">
                 <input class="operators" type="button" value='×' v-on:click="operateUpdate('×')">
-                <input class="operators" type="button" value='=' v-on:click="finalize" style="background: rgb(243, 124, 12);">
-                <input class="numbers" type="button" value='0' v-on:click="numUpdate(0)">
-                <input class="operators" type="button" value='C' v-on:click="reset()" style="background: rgb(243, 124, 12);">
                 <input class="operators" type="button" value='÷' v-on:click="operateUpdate('÷')">
+                <input class="operators" type="button" value='+' v-on:click="operateUpdate('+')">
+                <input class="operators" type="button" value='−'v-on:click="operateUpdate('−')">
+                <input class="numbers" type="button" value='7' v-on:click="numUpdate('7')">
+                <input class="numbers" type="button" value='8' v-on:click="numUpdate('8')">
+                <input class="numbers" type="button" value='9' v-on:click="numUpdate('9')">
+                <input class="special" type="button" value='←' v-on:click="">
+                <input class="numbers" type="button" value='4' v-on:click="numUpdate('4')">
+                <input class="numbers" type="button" value='5' v-on:click="numUpdate('5')">
+                <input class="numbers" type="button" value='6' v-on:click="numUpdate('6')">
+                <input class="equal" type="button" value='=' v-on:click="finalize">
+                <input class="numbers" type="button" value='1' v-on:click="numUpdate('1')">
+                <input class="numbers" type="button" value='2' v-on:click="numUpdate('2')">
+                <input class="numbers" type="button" value='3' v-on:click="numUpdate('3')">
+                <input class="numbers" type="button" value='.' v-on:click="numUpdate('.')">
+                <input class="numbers" type="button" value='0' v-on:click="numUpdate('0')">
+                <input class="special" type="button" value='C' v-on:click="reset()">
+
             </div>
         </center>
     </div>
@@ -41,7 +44,7 @@
                 num2: 0,
                 operator: "",
                 newCalc: true,
-                resultDisplay: "0"
+                resultDisplay: "0",
             },
             methods:({
                 numUpdate(num){
@@ -49,17 +52,17 @@
                         this.resultDisplay="";
                         this.num1=0;
                     }
-                    if(this.operator==""){
-                        this.num1=this.num1*10+num;
+                    if(this.operator===""){
+                        this.num1+=num;
                         this.newCalc=false;
                     }
                     else{
-                        this.num2=this.num2*10+num;
+                        this.num2+=num;
                     }
-                this.resultDisplay+=num.toString();
+                this.resultDisplay+=num.toString();               
                 },
                 operateUpdate(op){
-                    if(this.resultDisplay=="0"||this.operator!="")
+                    if(this.resultDisplay==="0"||this.operator!=="")
                         return; 
                     this.operator=op;
                     this.resultDisplay+=op;
@@ -71,6 +74,10 @@
                     this.resultDisplay="0";
                 },
                 finalize(){
+                    this.num1=parseFloat(this.num1);
+                    this.num2=parseFloat(this.num2);
+                    console.log(this.num1, this.num2);
+
                     switch(this.operator){
                         case "+":
                             this.num1+=this.num2;

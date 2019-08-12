@@ -5,7 +5,6 @@
     border-width: 1px;
     padding: 0.5em 1.25em;
     background: rgb(243, 239, 239);
-    position: relative; 
 }
 .operators{
     font-size: 20px;
@@ -14,12 +13,28 @@
     border-width: 1px;
     padding: 0.5em 1.25em;
     background: rgb(97, 243, 12);
-    position: relative;
-    box-shadow: 1px -1px -1px #000
+}
+.special{
+    font-size: 20px;
+    text-align: center;
+    border-color: black;
+    border-width: 1px;
+    padding: 0.5em 1.25em;
+    background: rgb(243, 124, 12);
+}
+.equal{
+    font-size: 20px;
+    text-align: center;
+    border-color: black;
+    border-width: 1px;
+    padding: 0.5em 1.25em;
+    background: rgb(243, 124, 12);
+    grid-row: auto / span 3;
+
 }
 .result{
     background: #222222;
-    padding: 0.5em 1.25em;
+    padding: 0.5em 1.20em;
     width: 250px;
     font-size: 25px;
     color: #fff;
